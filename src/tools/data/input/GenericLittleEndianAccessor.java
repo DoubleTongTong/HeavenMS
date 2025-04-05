@@ -23,6 +23,7 @@ package tools.data.input;
 
 import java.awt.Point;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 
 /**
  * Provides a generic interface to a Little Endian stream of bytes.
@@ -123,17 +124,35 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
     }
 
     /**
-     * Reads an ASCII string from the stream with length <code>n</code>.
+     * For debugging purposes, converts a byte array to a hexadecimal string.
+     *
+     * @param byteArray The byte array to convert.
+     * @return A string representing the byte array in hexadecimal format.
+     */
+    private String byteArrayToHex(byte[] byteArray) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : byteArray) {
+            sb.append(String.format("%02X ", b));
+        }
+        return sb.toString();
+    }
+    /**
+     * Reads an GBK string from the stream with length <code>n</code>.
      *
      * @param n Number of characters to read.
      * @return The string read.
      */
-    public final String readAsciiString(int n) {
-        char ret[] = new char[n];
+    public final String readGbkString(int n) {        
+        byte[] byteArray = new byte[n];
         for (int x = 0; x < n; x++) {
-            ret[x] = (char) readByte();
+            byteArray[x] = readByte();
         }
-        return String.valueOf(ret);
+        // System.out.println("Byte array: " + byteArrayToHex(byteArray));
+        // String result = new String(byteArray, Charset.forName("GBK"));
+        // System.out.println("Converted string: " + result);
+        
+        // return result;
+        return new String(byteArray, Charset.forName("GBK"));
     }
 
     /**
@@ -170,15 +189,15 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
     }
 
     /**
-     * Reads a MapleStory convention lengthed ASCII string.
+     * Reads a MapleStory convention lengthed GBK string.
      * This consists of a short integer telling the length of the string,
      * then the string itself.
      *
      * @return The string read.
      */
     @Override
-    public String readMapleAsciiString() {
-        return readAsciiString(readShort());
+    public String readMapleGbkString() {
+        return readGbkString(readShort());
     }
 
     /**

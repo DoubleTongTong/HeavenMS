@@ -33,7 +33,7 @@ import constants.string.CharsetConstants.MapleLanguageType;
  * @since Revision 323
  */
 public class GenericLittleEndianWriter implements LittleEndianWriter {
-    private static Charset ASCII = Charset.forName(MapleLanguageType.LANGUAGE_US.getAscii());
+    private static Charset GBK = Charset.forName("GBK");
     private ByteOutputStream bos;
 
     /**
@@ -114,24 +114,34 @@ public class GenericLittleEndianWriter implements LittleEndianWriter {
     }
 
     /**
-     * Writes an ASCII string the the stream.
+     * Writes an GBK string the the stream.
      *
-     * @param s The ASCII string to write.
+     * @param s The GBK string to write.
      */
     @Override
-    public void writeAsciiString(String s) {
-        write(s.getBytes(ASCII));
+    public void writeGbkString(String s) {
+        write(s.getBytes(GBK));
     }
 
     /**
-     * Writes a maple-convention ASCII string to the stream.
+     * Writes an GBK byte array to the stream.
+     *
+     * @param bytes The GBK byte array to write.
+     */
+    public void writeGbkString(byte[] bytes) {
+        write(bytes);
+    }
+
+    /**
+     * Writes a maple-convention GBK string to the stream.
      *
      * @param s The ASCII string to use maple-convention to write.
      */
     @Override
-    public void writeMapleAsciiString(String s) {
-        writeShort((short) s.length());
-        writeAsciiString(s);
+    public void writeMapleGbkString(String s) {
+        byte[] gbkBytes = s.getBytes(GBK);
+        writeShort((short) gbkBytes.length);
+        writeGbkString(gbkBytes);
     }
 
     /**
@@ -141,7 +151,7 @@ public class GenericLittleEndianWriter implements LittleEndianWriter {
      */
     @Override
     public void writeNullTerminatedAsciiString(String s) {
-        writeAsciiString(s);
+        writeGbkString(s);
         write(0);
     }
 

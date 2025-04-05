@@ -60,7 +60,7 @@ public class WZFile implements MapleDataProvider {
     }
 
     private void load() throws IOException {
-        lea.readAsciiString(4);
+        lea.readGbkString(4);
         lea.readInt();
         lea.readInt();
         headerSize = lea.readInt();

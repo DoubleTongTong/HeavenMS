@@ -82,8 +82,8 @@ public final class LoginPasswordHandler implements MaplePacketHandler {
             return;
         }
         
-        String login = slea.readMapleAsciiString();
-        String pwd = slea.readMapleAsciiString();
+        String login = slea.readMapleGbkString();
+        String pwd = slea.readMapleGbkString();
         c.setAccountName(login);
         
         slea.skip(6);   // localhost masked the initial part with zeroes...

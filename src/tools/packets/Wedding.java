@@ -208,7 +208,7 @@ public class Wedding extends MaplePacketCreator {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(MARRIAGE_REQUEST);
         mplew.write(0); //mode, 0 = engage, 1 = cancel, 2 = answer.. etc
-        mplew.writeMapleAsciiString(name); // name
+        mplew.writeMapleGbkString(name); // name
         mplew.writeInt(playerid); // playerid
         return mplew.getPacket();
     }
@@ -236,8 +236,8 @@ public class Wedding extends MaplePacketCreator {
     public static byte[] OnTakePhoto(String ReservedGroomName, String ReservedBrideName, int m_dwField, List<MapleCharacter> m_dwUsers) { // OnIFailedAtWeddingPhotos
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(WEDDING_PHOTO); // v53 header, convert -> v83
-        mplew.writeMapleAsciiString(ReservedGroomName);
-        mplew.writeMapleAsciiString(ReservedBrideName);
+        mplew.writeMapleGbkString(ReservedGroomName);
+        mplew.writeMapleGbkString(ReservedBrideName);
         mplew.writeInt(m_dwField); // field id?
         mplew.writeInt(m_dwUsers.size());
         
@@ -246,8 +246,8 @@ public class Wedding extends MaplePacketCreator {
             addCharLook(mplew, guest, false); // CUser::EncodeAvatar
             mplew.writeInt(30000); // v20 = *(_DWORD *)(v13 + 2192) -- new groom marriage ID??
             mplew.writeInt(30000); // v20 = *(_DWORD *)(v13 + 2192) -- new bride marriage ID??
-            mplew.writeMapleAsciiString(guest.getName());
-            mplew.writeMapleAsciiString(guest.getGuildId() > 0 && guest.getGuild() != null ? guest.getGuild().getName() : "");
+            mplew.writeMapleGbkString(guest.getName());
+            mplew.writeMapleGbkString(guest.getGuildId() > 0 && guest.getGuild() != null ? guest.getGuild().getName() : "");
             mplew.writeShort(guest.getGuildId() > 0 && guest.getGuild() != null ? guest.getGuild().getLogoBG() : 0);
             mplew.write(guest.getGuildId() > 0 && guest.getGuild() != null ? guest.getGuild().getLogoBGColor() : 0);
             mplew.writeShort(guest.getGuildId() > 0 && guest.getGuild() != null ? guest.getGuild().getLogo() : 0);
@@ -258,7 +258,7 @@ public class Wedding extends MaplePacketCreator {
             mplew.write(1); // // if ( *(_DWORD *)(v13 + 288) ) { COutPacket::Encode1(&thisa, v20);
             // CPet::EncodeScreenShotPacket(*(CPet **)(v13 + 288), &thisa);
             mplew.writeInt(1); // dwTemplateID
-            mplew.writeMapleAsciiString(guest.getName()); // m_sName
+            mplew.writeMapleGbkString(guest.getName()); // m_sName
             mplew.writeShort(guest.getPosition().x); // m_ptCurPos.x
             mplew.writeShort(guest.getPosition().y); // m_ptCurPos.y
             mplew.write(guest.getStance()); // guest.m_bMoveAction
@@ -290,8 +290,8 @@ public class Wedding extends MaplePacketCreator {
             mplew.writeInt(1112803); // Engagement Ring's Outcome (doesn't matter for engagement)
             mplew.writeInt(1112803); // Engagement Ring's Outcome (doesn't matter for engagement)
         }
-        mplew.writeAsciiString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? chr.getName() : MapleCharacter.getNameById(chr.getPartnerId()), '\0', 13));
-        mplew.writeAsciiString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? MapleCharacter.getNameById(chr.getPartnerId()) : chr.getName(), '\0', 13));
+        mplew.writeGbkString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? chr.getName() : MapleCharacter.getNameById(chr.getPartnerId()), '\0', 13));
+        mplew.writeGbkString(StringUtil.getRightPaddedStr(chr.getGender() == 0 ? MapleCharacter.getNameById(chr.getPartnerId()) : chr.getName(), '\0', 13));
         
         return mplew.getPacket();
     }
@@ -308,7 +308,7 @@ public class Wedding extends MaplePacketCreator {
         mplew.write(msg);
         if (msg == 36) {
             mplew.write(1);
-            mplew.writeMapleAsciiString("You are now engaged.");
+            mplew.writeMapleGbkString("You are now engaged.");
         }
         return mplew.getPacket();
     }
@@ -362,8 +362,8 @@ public class Wedding extends MaplePacketCreator {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(MARRIAGE_RESULT);
         mplew.write(15);
-        mplew.writeMapleAsciiString(groom);
-        mplew.writeMapleAsciiString(bride);
+        mplew.writeMapleGbkString(groom);
+        mplew.writeMapleGbkString(bride);
         mplew.writeShort(1); // 0 = Cathedral Normal?, 1 = Cathedral Premium?, 2 = Chapel Normal?
         return mplew.getPacket();
     }
@@ -395,7 +395,7 @@ public class Wedding extends MaplePacketCreator {
             case 0x09: { // Load Wedding Registry
                 mplew.write(itemnames.size());
                 for (String names : itemnames) {
-                    mplew.writeMapleAsciiString(names);
+                    mplew.writeMapleGbkString(names);
                 }
                 break;
             }
@@ -406,7 +406,7 @@ public class Wedding extends MaplePacketCreator {
                 if (mode == 0xB) {
                     mplew.write(itemnames.size());
                     for (String names : itemnames) {
-                        mplew.writeMapleAsciiString(names);
+                        mplew.writeMapleGbkString(names);
                     }
                 }
                 mplew.writeLong(32);

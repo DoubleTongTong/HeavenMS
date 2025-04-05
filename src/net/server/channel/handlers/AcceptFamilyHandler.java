@@ -55,9 +55,9 @@ public final class AcceptFamilyHandler extends AbstractMaplePacketHandler {
         }
         MapleCharacter chr = c.getPlayer();
         int inviterId = slea.readInt();
-        slea.readMapleAsciiString();
+        slea.readMapleGbkString();
         boolean accept = slea.readByte() != 0;
-        // String inviterName = slea.readMapleAsciiString();
+        // String inviterName = slea.readMapleGbkString();
         MapleCharacter inviter = c.getWorldServer().getPlayerStorage().getCharacterById(inviterId);
         if(inviter != null) {
             MapleInviteResult inviteResult = MapleInviteCoordinator.answerInvite(InviteType.FAMILY, c.getPlayer().getId(), c.getPlayer(), accept);

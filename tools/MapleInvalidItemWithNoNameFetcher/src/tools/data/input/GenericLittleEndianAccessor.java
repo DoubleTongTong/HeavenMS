@@ -128,7 +128,7 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
      * @param n Number of characters to read.
      * @return The string read.
      */
-    public final String readAsciiString(int n) {
+    public final String readGbkString(int n) {
         char ret[] = new char[n];
         for (int x = 0; x < n; x++) {
             ret[x] = (char) readByte();
@@ -177,8 +177,8 @@ public class GenericLittleEndianAccessor implements LittleEndianAccessor {
      * @return The string read.
      */
     @Override
-    public String readMapleAsciiString() {
-        return readAsciiString(readShort());
+    public String readMapleGbkString() {
+        return readGbkString(readShort());
     }
 
     /**
