@@ -23,6 +23,6 @@
 @author kevintjuh93
 */
 function enter(pi) { 
-	pi.showInstruction("Once you leave this area you won't be able to return.", 150, 5);
+	pi.showInstruction("离开此区域后将无法返回", 150, 5);
 	return true;
 }  

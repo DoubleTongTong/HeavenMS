@@ -25,6 +25,7 @@
 	NPC Name: 		Roger
 	Map(s): 		Maple Road : Lower level of the Training Camp (2)
 	Description: 		Quest - Roger's Apple
+    任务 - 罗杰的苹果
 */
 importPackage(Packages.client);
 
@@ -45,11 +46,11 @@ function start(mode, type, selection) {
             status--;
         
         if (status == 0)
-            qm.sendNext("Hey, " + (qm.getPlayer().getGender() == 0 ? "Man" : "Miss") + "~ What's up? Haha! I am Roger who can teach you adorable new Maplers lots of information.");
+            qm.sendNext("嘿，" + (qm.getPlayer().getGender() == 0 ? "小伙子" : "小姑娘") + "~ 最近怎么样啊？哈哈！我是罗杰，专门为你们这些可爱的新手冒险家提供指导的。");
         else if (status == 1)
-            qm.sendNextPrev("You are asking who made me do this? Ahahahaha!\r\nMyself! I wanted to do this and just be kind to you new travellers.");
+            qm.sendNextPrev("你问是谁让我来帮忙的？啊哈哈哈！\r\n当然是我自愿的啦！就是想照顾下你们这些初来乍到的旅行者。");
         else if (status == 2)
-            qm.sendAcceptDecline("So..... Let me just do this for fun! Abaracadabra~!");
+            qm.sendAcceptDecline("那么......让我们开始趣味教学吧！阿布拉卡达布拉~！");
         else if (status == 3) {
             if (qm.getPlayer().getHp() >= 50) {
                 qm.getPlayer().updateHp(25);
@@ -60,9 +61,9 @@ function start(mode, type, selection) {
             }
             
             qm.forceStartQuest();
-            qm.sendNext("Surprised? If HP becomes 0, then you are in trouble. Now, I will give you #rRoger's Apple#k. Please take it. You will feel stronger. Open the Item window and double click to consume. Hey, it's very simple to open the Item window. Just press #bI#k on your keyboard.");
+            qm.sendNext("惊喜吗？如果HP归零可就麻烦啦。现在我要给你#r罗杰的苹果#k，吃下它会感觉充满力量。打开物品栏双击使用就行。对了，按#bI键#k就能快速打开物品栏哦。");
         } else if (status == 4) {
-            qm.sendPrev("Please take all Roger's Apples that I gave you. You will be able to see the HP bar increasing. Please talk to me again when you recover your HP 100%.");
+            qm.sendPrev("把我给你的苹果都吃掉吧，看着HP条涨上去。等HP恢复到100%再来找我。");
         } else if (status == 5) {
             qm.showInfo("UI/tutorial.img/28");
             qm.dispose();
@@ -86,24 +87,24 @@ function end(mode, type, selection) {
         
         if (status == 0)
             if (qm.c.getPlayer().getHp() < 50) {
-                qm.sendNext("Hey, your HP is not fully recovered yet. Did you take all the Roger's Apple that I gave you? Are you sure?");
+                qm.sendNext("喂，你的HP还没回满呢。把我给的苹果都吃了吗？确定吗？");
                 qm.dispose();
             } else
-                qm.sendNext("How easy is it to consume the item? Simple, right? You can set a #bhotkey#k on the right bottom slot. Haha you didn't know that! right? Oh, and if you are a beginner, HP will automatically recover itself as time goes by. Well it takes time but this is one of the strategies for the beginners.");
+                qm.sendNext("使用物品很简单吧？还有个技巧：你可以给物品设置#b快捷键#k，就在界面右下角。哈哈没想到吧？另外新手会自动缓慢恢复HP，虽然需要点时间，但对萌新很实用哦。");
         else if (status == 1)
-            qm.sendNextPrev("Alright! Now that you have learned alot, I will give you a present. This is a must for your travel in Maple World, so thank me! Please use this under emergency cases!");
+            qm.sendNextPrev("好啦！既然学了这么多，送你份礼物。这可是冒险必备品，记得好好感谢我！紧急时刻才能用哦！");
         else if (status == 2)
-            qm.sendPrev("Okay, this is all I can teach you. I know it's sad but it is time to say good bye. Well take care if yourself and Good luck my friend!\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#v2010000# 3 #t2010000#\r\n#v2010009# 3 #t2010009#\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 10 exp");
+            qm.sendPrev("能教你的就这么多啦。虽然舍不得，但该说再见啦。保重自己，祝你好运伙伴！\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#v2010000# 3个#t2010000#\r\n#v2010009# 3个#t2010009#\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 10点经验值");
         else if (status == 3) {
             if(qm.isQuestCompleted(1021))
-                qm.dropMessage(1,"Unknown Error");
+                qm.dropMessage(1,"未知错误");
             else if(qm.canHold(2010000) && qm.canHold(2010009)){
                 qm.gainExp(10);
                 qm.gainItem(2010000, 3);
                 qm.gainItem(2010009, 3);
                 qm.forceCompleteQuest();
             }else
-                qm.dropMessage(1,"Your inventory is full");
+                qm.dropMessage(1,"背包空间不足");
             qm.dispose();
         }
     }
